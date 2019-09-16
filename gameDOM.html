@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Rock, paper and scissors! </title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <p> 5 round game </p> 
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+
+    <br> <br>
+    <div id="results">
+
+    </div>
+
+    <script>
+let options = ["rock", "paper", "scissors"];
+
+function computerPlay() {
+    let rand = options[Math.floor(Math.random() * options.length)];
+    return rand;
+}
+
+
+function playRound(playerSelection, computerSelection) {
+
+    if ((playerSelection == "rock" && computerSelection == "paper") ||
+        (playerSelection == "paper" && computerSelection == "scissors") ||
+        (playerSelection == "scissors" && computerSelection == "rock")) {
+            computerScore += 1;
+            const result = document.querySelector('#results');
+            result.textContent = "you lost! " + computerSelection + " beats " + playerSelection + 
+            ". The score is: Computer: " + computerScore + ". player: " + playerScore; 
+        }
+
+        else if (playerSelection == computerSelection) {
+            const result = document.querySelector('#results');
+            result.textContent = "it's a tie. The score is: Computer: " + computerScore + ". player: " + playerScore; 
+        }
+
+            else {
+                playerScore += 1;
+                const result = document.querySelector('#results');
+                result.textContent = "you won! " + playerSelection + " beats " + computerSelection + 
+            ". The score is: Computer: " + computerScore + ". player: " + playerScore;
+                
+            }
+        if (playerScore === 5 || computerScore === 5) {
+            
+            if (playerScore === 5) {
+                const score = document.querySelector('#results');
+                score.textContent = "you won the game! The final score is: Computer: " + computerScore + ". player: " + playerScore;
+            }
+            else {
+                const score = document.querySelector('#results');
+                score.textContent = "you lost the game >:( The final score is: Computer: " + computerScore + ". player: " + playerScore;
+            }
+            playerScore = 0;
+            computerScore = 0;
+    }
+}
+
+let playerScore = 0;
+let computerScore = 0;
+
+// buttons is a node list. It looks and acts much like an array.
+const buttons = document.querySelectorAll('button');
+
+// we use the .forEach method to iterate through each button
+buttons.forEach((button) => {
+
+  // and for each one we add a 'click' listener
+  button.addEventListener('click', (e) => {
+    let playerSelection = button.id;
+    let computerSelection = computerPlay();
+    playRound(playerSelection, computerSelection);
+    
+  });
+});
+
+    </script>
+</body>
+
+</html>
